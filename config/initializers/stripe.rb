@@ -26,7 +26,7 @@ StripeEvent.configure do |events|
 end
 
 def stripe_mailer(subject, body)
-  smtpapi =  { :category => { "Stripe Billing" }, :filters => { :clicktrack => { :settings => { :enable => 0 } }, :ganalytics => { :settings => { :enable => 0 } }, :template => { :settings => { :enable => 0 } } } }
+  smtpapi =  { :category => "Stripe Billing", :filters => { :clicktrack => { :settings => { :enable => 0 } }, :ganalytics => { :settings => { :enable => 0 } }, :template => { :settings => { :enable => 0 } } } }
   ActionMailer::Base.mail(
     :headers['X-SMTPAPI'] => smtpapi.to_json,
     :from => ENV["EMAIL_FROM"],
