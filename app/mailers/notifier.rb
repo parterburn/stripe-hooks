@@ -5,11 +5,11 @@ class Notifier < ActionMailer::Base
   sendgrid_disable  :ganalytics, :opentrack, :clicktrack
 
   headers['x-smtpapi'] = {
-    "filters" : {
-      "template" : {
-        "settings" : {
-          "enable" : 1,
-          "text/html" : "<% body %>"
+    :filters => {
+      :template => {
+        :settings => {
+          :enable => 1,
+          :"text/html" => "<% body %>"
         }
       }
     }
