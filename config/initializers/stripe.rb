@@ -2,9 +2,7 @@ Stripe.api_key = ENV['STRIPE_KEY'] # Set your api key
 
 StripeEvent.configure do |events|
   events.all do |event|
-    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
-    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has #{event.type}<br><br>#{event.data.object.inspect}"
-    stripe_mailer(subject, body)
+    Notifier.send_event_email(event).deliver
   end
 end
 
@@ -23,16 +21,4 @@ end
 
 StripeEvent.configure do |events|
   events.all BillingEventLogger.new(Rails.logger)
-end
-
-def stripe_mailer(subject, body)
-  smtpapi =  { :category => "Stripe Billing", :filters => { :clicktrack => { :settings => { :enable => 0 } }, :ganalytics => { :settings => { :enable => 0 } }, :template => { :settings => { :enable => 0 } } } }
-  ActionMailer::Base.mail(
-    :headers['X-SMTPAPI'] => smtpapi.to_json,
-    :from => ENV["EMAIL_FROM"],
-    :to => ENV["EMAIL_TO"],
-    :subject => subject,
-    :body => body,
-    :content_type => "text/html",
-  ).deliver
 end

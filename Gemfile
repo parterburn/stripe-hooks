@@ -6,6 +6,7 @@ gem 'pg' #database
 gem 'slim', '~> 2.0.0' # Templating for queue
 gem 'jquery-rails'
 gem 'stripe_event'
+gem 'sendgrid'
 
 # Gems used only for assets and not required in production environments by default.
 group :assets do
