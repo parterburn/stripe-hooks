@@ -41,13 +41,13 @@ StripeEvent.subscribe 'customer.card.' do |event|
 end
 
 def stripe_mailer(subject, body)
-  SMTPAPI = "{ 'filters': { 'clicktrack' : { 'settings' : { 'enable' : 0 } }, 'ganalytics' : { 'settings' : { 'enable' : 0 } }, 'template' : { 'settings' : { 'enable' : 0 } } } }"
+  smtpapi =  { :filters => { :clicktrack => { :settings => { :enable => 0 } }, :ganalytics => { :settings => { :enable => 0 } }, :template => { :settings => { :enable => 0 } } } }
   ActionMailer::Base.mail(
     :from => ENV["EMAIL_FROM"],
     :to => ENV["EMAIL_TO"],
     :subject => subject,
     :body => body,
     :content_type => "text/html",
-    :headers['X-SMTPAPI'] => SMTPAPI
+    :headers['X-SMTPAPI'] => JSON.pretty_generate(smtpapi)
   ).deliver
 end
