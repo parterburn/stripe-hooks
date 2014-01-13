@@ -67,15 +67,5 @@ module StripeHooks
       end if File.exists?(env_file)
     end
 
-    #SendGrid Mailer
-    ActionMailer::Base.smtp_settings = {
-      :address => "smtp.sendgrid.net",
-      :port => 25,
-      :domain => ENV["SENDGRID_DOMAIN"],
-      :authentication => :plain,
-      :user_name => ENV["SENDGRID_USERNAME"],
-      :password => ENV["SENDGRID_PASSWORD"]
-    }
-
   end
 end

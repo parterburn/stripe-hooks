@@ -1,18 +1,6 @@
 Stripe.api_key = ENV['STRIPE_KEY'] # Set your api key
 
 StripeEvent.configure do |events|
-  events.subscribe 'charge.failed' do |event|
-    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
-    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has been updated."
-    stripe_mailer(subject, body)
-  end
-
-  events.subscribe 'customer.updated' do |event|
-    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
-    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has been updated."
-    stripe_mailer(subject, body)
-  end  
-
   events.all do |event|
     subject = "[Stripe] #{event.type} for #{event.data.object.email}"
     body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has #{event.type}"
@@ -53,5 +41,13 @@ StripeEvent.subscribe 'customer.card.' do |event|
 end
 
 def stripe_mailer(subject, body)
-  ActionMailer::Base.mail(:from => ENV["EMAIL_FROM"], :to => ENV["EMAIL_TO"], :subject => subject, :body => body, :content_type => "text/html").deliver
+  SMTPAPI = "{ 'filters': { 'clicktrack' : { 'settings' : { 'enable' : 0 } }, 'ganalytics' : { 'settings' : { 'enable' : 0 } }, 'template' : { 'settings' : { 'enable' : 0 } } } }"
+  ActionMailer::Base.mail(
+    :from => ENV["EMAIL_FROM"],
+    :to => ENV["EMAIL_TO"],
+    :subject => subject,
+    :body => body,
+    :content_type => "text/html",
+    :headers['X-SMTPAPI'] => SMTPAPI
+  ).deliver
 end
