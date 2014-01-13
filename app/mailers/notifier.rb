@@ -29,6 +29,12 @@ class Notifier < ActionMailer::Base
           :settings => {
             :enable => 0
           }
+        },
+
+        :ganalytics => {
+          :settings => {
+            :enable => 0
+          }
         }
 
       }
