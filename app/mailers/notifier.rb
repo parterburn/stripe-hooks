@@ -4,19 +4,19 @@ class Notifier < ActionMailer::Base
   sendgrid_category "Stripe Events"
   sendgrid_disable  :ganalytics, :opentrack, :clicktrack
 
-  headers['x-smtpapi'] = {
-    :filters => {
-      :template => {
-        :settings => {
-          :enable => 1,
-          :"text/html" => "<% body %>"
-        }
-      }
-    }
-  }.to_json
-
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_event_email(event)
+
+    headers['x-smtpapi'] = {
+      :filters => {
+        :template => {
+          :settings => {
+            :enable => 1,
+            :"text/html" => "<% body %>"
+          }
+        }
+      }
+    }.to_json
 
     mail(
       :from => ENV["EMAIL_FROM"],
