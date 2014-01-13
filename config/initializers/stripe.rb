@@ -3,7 +3,7 @@ Stripe.api_key = ENV['STRIPE_KEY'] # Set your api key
 StripeEvent.configure do |events|
   events.all do |event|
     subject = "[Stripe] #{event.type} for #{event.data.object.email}"
-    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has #{event.type}<br><br>#{debug event.data.object}"
+    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has #{event.type}<br><br>#{event.data.object.inspect}"
     stripe_mailer(subject, body)
   end
 end
