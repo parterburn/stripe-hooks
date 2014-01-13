@@ -2,15 +2,21 @@ Stripe.api_key = ENV['STRIPE_KEY'] # Set your api key
 
 StripeEvent.configure do |events|
   events.subscribe 'charge.failed' do |event|
-    # Define subscriber behavior based on the event object
-    event.class       #=> Stripe::Event
-    event.type        #=> "charge.failed"
-    event.data.object #=> #<Stripe::Charge:0x3fcb34c115f8>
-    ActionMailer::Base.mail(:from => "pleasereply@brandfolder.com", :to => "paul@brandfolder.com", :subject => "Stripe Event", :body => "Charge Failed").deliver
+    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
+    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has been updated."
+    stripe_mailer(subject, body)
   end
 
+  events.subscribe 'customer.updated' do |event|
+    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
+    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has been updated."
+    stripe_mailer(subject, body)
+  end  
+
   events.all do |event|
-    # Handle all event types - logging, etc.
+    subject = "[Stripe] #{event.type} for #{event.data.object.email}"
+    body = "<a href='https://manage.stripe.com/search?query=#{event.data.object.id}'>#{event.data.object.email}</a> has #{event.type}"
+    stripe_mailer(subject, body)
   end
 end
 
@@ -44,4 +50,8 @@ end
 
 StripeEvent.subscribe 'customer.card.' do |event|
   # Will be triggered for any customer.card.* events
+end
+
+def stripe_mailer(subject, body)
+  ActionMailer::Base.mail(:from => ENV["EMAIL_FROM"], :to => ENV["EMAIL_TO"], :subject => subject, :body => body, :content_type => "text/html").deliver
 end
