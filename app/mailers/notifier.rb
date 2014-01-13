@@ -6,7 +6,7 @@ class Notifier < ActionMailer::Base
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_event_email(event)
-
+    @event = event
     headers['x-smtpapi'] = {
       :filters => {
         :template => {
