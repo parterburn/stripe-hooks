@@ -53,7 +53,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.8.4)
-    pg (0.15.1)
     polyglot (0.3.3)
     puma (2.0.1)
       rack (>= 1.1, < 2.0)
@@ -122,7 +121,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   heroku-deflater (~> 0.5.1)
   jquery-rails
-  pg
   puma (~> 2.0.1)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
