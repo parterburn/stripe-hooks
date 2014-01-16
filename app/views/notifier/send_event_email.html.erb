@@ -1,1 +1,1 @@
- <a href='https://manage.stripe.com/search?query=<%= @event.data.object.id %>'><%= @event.type %></a><br><br><%= @event.data.object.inspect %>
+<%= @event.type %> for <a href='https://manage.stripe.com/search?query=<%= @event.data.object.id %>'><%= @event.data.object.customer %></a><br><br><%= @event.data.object.inspect %>

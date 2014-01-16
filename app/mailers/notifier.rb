@@ -40,10 +40,16 @@ class Notifier < ActionMailer::Base
       }
     }.to_json
 
+    if event.data.object.email
+      subject_cust = event.data.object.email
+    else
+      subject_cust = event.data.object.customer
+    end
+
     mail(
       :from => ENV["EMAIL_FROM"],
       :to => ENV["EMAIL_TO"],
-      :subject => "[Stripe] #{event.type}"
+      :subject => "[Stripe] #{event.type} for #{subject_cust}"
       )
   end
 end
