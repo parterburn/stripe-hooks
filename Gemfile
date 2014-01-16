@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'puma', '~> 2.0.1' # web server
+gem 'pg' #database
 gem 'slim', '~> 2.0.0' # Templating for queue
 gem 'jquery-rails'
 gem 'stripe_event'
