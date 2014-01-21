@@ -16,7 +16,7 @@ Delinquent: <%= @event.data.object.try(:delinquent) %><br>
 <% if @event.data.object.try(:discount).present? %>
   <% if @event.data.object.discount.try(:coupon).present? %>
     Coupon: <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.try(:id) %>'><%= @event.data.object.discount.coupon.try(:id) %></a><br>
-  <% if end %>
+  <% end %>
 <% end %>
 <br><br>
 --
