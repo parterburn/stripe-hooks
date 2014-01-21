@@ -20,4 +20,4 @@ Delinquent: <%= @event.data.object.try(:delinquent) %><br>
 <% end %>
 <br><br>
 --
-<%= JSON.pretty_generate(@event.data.object.inspect) %>
+<%= JSON.pretty_generate(@event.data.object) %>
