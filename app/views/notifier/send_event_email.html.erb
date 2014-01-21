@@ -11,10 +11,10 @@ Delinquent: <%= @event.data.object.try(:delinquent) %><br>
     Plan: <%= @event.data.object.subscription.plan.try(:name) %><br>  
     Plan ID: <%= @event.data.object.subscription.plan.try(:id) %><br>
     Plan Interval: <%= @event.data.object.subscription.plan.try(:interval) %><br>
-    <% if @event.data.object.subscription.try(:plan).present? %>
-      Coupon: <a href='https://manage.stripe.com/coupons/<%= @event.data.object.subscription.discount.coupon.try(:id) %>'><%= @event.data.object.subscription.discount.coupon.try(:id) %></a><br>
-    <% end %>
   <% end %>
+<% end %>
+<% if @event.data.object.try(:discount).present? %>
+  Coupon: <a href='https://manage.stripe.com/coupons/<%= @event.data.object.subscription.discount.coupon.try(:id) %>'><%= @event.data.object.discount.coupon.try(:id) %></a><br>
 <% end %>
 <br><br>
 --
