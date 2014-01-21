@@ -42,8 +42,10 @@ class Notifier < ActionMailer::Base
 
     if event.data.object.email
       subject_cust = event.data.object.email
-    else
+    elsif event.data.object.customer
       subject_cust = event.data.object.customer
+    else
+      subject_cust = event.data.object.id
     end
 
     mail(
