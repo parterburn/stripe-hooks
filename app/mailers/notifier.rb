@@ -40,9 +40,9 @@ class Notifier < ActionMailer::Base
       }
     }.to_json
 
-    if event.data.object.email
+    if event.data.object.try(:email).present?
       @subject_cust = event.data.object.email
-    elsif event.data.object.customer
+    elsif event.data.object.try(:customer).present?
       @subject_cust = event.data.object.customer
     else
       @subject_cust = event.data.object.id
