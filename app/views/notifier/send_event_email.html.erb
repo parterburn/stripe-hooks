@@ -18,4 +18,4 @@
   <% end %>
 <% end %>
 <br><br>
-<%= ap @event.data.object, :html => true %>
+<%= (ap @event.data.object).html_safe %>
