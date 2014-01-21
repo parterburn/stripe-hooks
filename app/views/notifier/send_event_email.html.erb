@@ -6,11 +6,11 @@ Description: <%= @event.data.object.try(:description) %><br>
 Delinquent: <%= @event.data.object.try(:delinquent) %><br>
 <% if @event.data.object.try(:subscription).present? %>
   Subscription: <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.try(:id) %>'><%= @event.data.object.subscription.try(:id) %></a><br>
+  Status: <%= @event.data.object.subscription.try(:status) %><br>
   <% if @event.data.object.subscription.try(:plan).present? %>
-    Plan Name: <%= @event.data.object.subscription.plan.try(:name) %><br>  
+    Plan: <%= @event.data.object.subscription.plan.try(:name) %><br>  
     Plan ID: <%= @event.data.object.subscription.plan.try(:id) %><br>
     Plan Interval: <%= @event.data.object.subscription.plan.try(:interval) %><br>
-    Plan Status: <%= @event.data.object.subscription.plan.try(:status) %><br>
     <% if @event.data.object.subscription.try(:plan).present? %>
       Coupon: <a href='https://manage.stripe.com/coupons/<%= @event.data.object.subscription.discount.coupon.try(:id) %>'><%= @event.data.object.subscription.discount.coupon.try(:id) %></a><br>
     <% end %>
@@ -18,4 +18,4 @@ Delinquent: <%= @event.data.object.try(:delinquent) %><br>
 <% end %>
 <br><br>
 --
-<%= @event.data.object.inspect %>
+<%= JSON.pretty_generate(@event.data.object.inspect) %>
