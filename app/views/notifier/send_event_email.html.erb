@@ -1,23 +1,24 @@
 <%= @event.type %> for <a href='https://manage.stripe.com/search?query=<%= @event.data.object.id %>'><%= @subject_cust %></a><br><br>
-Event Type: <strong><%= @event.type %></strong><br>
-Object: <%= @event.data.object.try(:object) %><br>
-Email: <%= @event.data.object.try(:email) %><br>
-Description: <%= @event.data.object.try(:description) %><br>
-Delinquent: <%= @event.data.object.try(:delinquent) %><br>
+<strong>Event Type:</strong> <%= @event.type %><br>
+<strong>Email:</strong> <%= @event.data.object.try(:email) %><br>
+<strong>Description:</strong> <%= @event.data.object.try(:description) %><br>
+<strong>Delinquent:</strong> <%= @event.data.object.try(:delinquent) %><br>
 <% if @event.data.object.try(:subscription).present? %>
-  Subscription: <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.try(:id) %>'><%= @event.data.object.subscription.try(:id) %></a><br>
-  Status: <%= @event.data.object.subscription.try(:status) %><br>
+  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.try(:id) %>'><%= @event.data.object.subscription.try(:id) %></a><br>
+  <strong>Status:</strong> <%= @event.data.object.subscription.try(:status) %><br>
   <% if @event.data.object.subscription.try(:plan).present? %>
-    Plan: <%= @event.data.object.subscription.plan.try(:name) %><br>  
-    Plan ID: <%= @event.data.object.subscription.plan.try(:id) %><br>
-    Plan Interval: <%= @event.data.object.subscription.plan.try(:interval) %><br>
+    <strong>Plan:</strong> <%= @event.data.object.subscription.plan.try(:name) %><br>  
+    <strong>ID:</strong> <%= @event.data.object.subscription.plan.try(:id) %><br>
+    <strong>Interval:</strong> <%= @event.data.object.subscription.plan.try(:interval) %><br>
   <% end %>
 <% end %>
 <% if @event.data.object.try(:discount).present? %>
   <% if @event.data.object.discount.try(:coupon).present? %>
-    Coupon: <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.try(:id) %>'><%= @event.data.object.discount.coupon.try(:id) %></a><br>
+    <strong>Coupon:</strong> <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.try(:id) %>'><%= @event.data.object.discount.coupon.try(:id) %></a><br>
   <% end %>
 <% end %>
 <br><br>
 --
+<pre>
 <%= JSON.pretty_generate(@event.data.object) %>
+</pre>
