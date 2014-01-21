@@ -19,6 +19,7 @@
 <% end %>
 <br><br>
 --
+<br>
 <pre>
-<%= JSON.pretty_generate(@event.data.object) %>
+<%= JSON.pretty_generate(JSON.parse(@event.data.object)) %>
 </pre>
