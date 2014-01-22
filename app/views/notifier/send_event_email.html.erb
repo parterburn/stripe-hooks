@@ -1,20 +1,30 @@
 <%= @event.type %> for <a href='https://manage.stripe.com/search?query=<%= @event.data.object.id %>'><%= @subject_cust %></a><br><br>
 <strong>Event Type:</strong> <%= @event.type %><br>
-<strong>Email:</strong> <%= @event.data.object.email %><br>
-<strong>Description:</strong> <%= @event.data.objectdescription %><br>
-<strong>Delinquent:</strong> <%= @event.data.objectdelinquent %><br>
+
+<% if defined? @event.data.object.email %>
+  <strong>Email:</strong> <%= @event.data.object.email %><br>
+<% end %>
+
+<% if defined? @event.data.object.description %>
+  <strong>Description:</strong> <%= @event.data.object.description %><br>
+<% end %>
+
+<% if defined? @event.data.object.delinquent %>
+  <strong>Delinquent:</strong> <%= @event.data.object.delinquent %><br>
+<% end %>
+
 <% if defined? @event.data.object.subscription %>
-  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscriptionid %>'><%= @event.data.object.subscriptionid %></a><br>
-  <strong>Status:</strong> <%= @event.data.object.subscriptionstatus %><br>
+  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.id %>'><%= @event.data.object.subscriptionid %></a><br>
+  <strong>Status:</strong> <%= @event.data.object.subscription.status %><br>
   <% if defined? @event.data.object.subscription.plan %>
-    <strong>Plan:</strong> <%= @event.data.object.subscription.planname %><br>  
-    <strong>ID:</strong> <%= @event.data.object.subscription.planid %><br>
-    <strong>Interval:</strong> <%= @event.data.object.subscription.planinterval %><br>
+    <strong>Plan:</strong> <%= @event.data.object.subscription.plan.name %><br>  
+    <strong>ID:</strong> <%= @event.data.object.subscription.plan.id %><br>
+    <strong>Interval:</strong> <%= @event.data.object.subscription.plan.interval %><br>
   <% end %>
 <% end %>
 <% if defined? @event.data.object.discount %>
   <% if defined? @event.data.object.discount.coupon %>
-    <strong>Coupon:</strong> <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.couponid %>'><%= @event.data.object.discount.couponid %></a><br>
+    <strong>Coupon:</strong> <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.id %>'><%= @event.data.object.discount.coupon.id %></a><br>
   <% end %>
 <% end %>
 <br><br>
