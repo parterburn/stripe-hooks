@@ -14,14 +14,17 @@
 <% end %>
 
 <% if defined? @event.data.object.subscription %>
-  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.id %>'><%= @event.data.object.subscriptionid %></a><br>
-  <strong>Status:</strong> <%= @event.data.object.subscription.status %><br>
-  <% if defined? @event.data.object.subscription.plan %>
-    <strong>Plan:</strong> <%= @event.data.object.subscription.plan.name %><br>  
-    <strong>ID:</strong> <%= @event.data.object.subscription.plan.id %><br>
-    <strong>Interval:</strong> <%= @event.data.object.subscription.plan.interval %><br>
+  <% if defined? @event.data.object.subscription.id %>
+    <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.id %>'><%= @event.data.object.subscription.id %></a><br>
+    <strong>Status:</strong> <%= @event.data.object.subscription.status %><br>
+    <% if defined? @event.data.object.subscription.plan %>
+      <strong>Plan:</strong> <%= @event.data.object.subscription.plan.name %><br>  
+      <strong>ID:</strong> <%= @event.data.object.subscription.plan.id %><br>
+      <strong>Interval:</strong> <%= @event.data.object.subscription.plan.interval %><br>
+    <% end %>
+  <% else %>
+    <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription %>'><%= @event.data.object.subscription %></a><br>
   <% end %>
-<% end %>
 <% if defined? @event.data.object.discount %>
   <% if defined? @event.data.object.discount.coupon %>
     <strong>Coupon:</strong> <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.id %>'><%= @event.data.object.discount.coupon.id %></a><br>
