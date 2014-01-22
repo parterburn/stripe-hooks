@@ -4,7 +4,7 @@
 <strong>Description:</strong> <%= @event.data.objectdescription %><br>
 <strong>Delinquent:</strong> <%= @event.data.objectdelinquent %><br>
 <% if defined? @event.data.object.subscription %>
-  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscriptionid) %>'><%= @event.data.object.subscriptionid %></a><br>
+  <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscriptionid %>'><%= @event.data.object.subscriptionid %></a><br>
   <strong>Status:</strong> <%= @event.data.object.subscriptionstatus %><br>
   <% if defined? @event.data.object.subscription.plan %>
     <strong>Plan:</strong> <%= @event.data.object.subscription.planname %><br>  
