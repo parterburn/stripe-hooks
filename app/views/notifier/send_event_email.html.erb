@@ -3,17 +3,17 @@
 <strong>Email:</strong> <%= @event.data.object.try(:email) %><br>
 <strong>Description:</strong> <%= @event.data.object.try(:description) %><br>
 <strong>Delinquent:</strong> <%= @event.data.object.try(:delinquent) %><br>
-<% if @event.data.object.try(:subscription).present? %>
+<% if defined? @event.data.object.subscription %>
   <strong>Subscription:</strong> <a href='https://manage.stripe.com/search?query=<%= @event.data.object.subscription.try(:id) %>'><%= @event.data.object.subscription.try(:id) %></a><br>
   <strong>Status:</strong> <%= @event.data.object.subscription.try(:status) %><br>
-  <% if @event.data.object.subscription.try(:plan).present? %>
+  <% if defined? @event.data.object.subscription.plan %>
     <strong>Plan:</strong> <%= @event.data.object.subscription.plan.try(:name) %><br>  
     <strong>ID:</strong> <%= @event.data.object.subscription.plan.try(:id) %><br>
     <strong>Interval:</strong> <%= @event.data.object.subscription.plan.try(:interval) %><br>
   <% end %>
 <% end %>
-<% if @event.data.object.try(:discount).present? %>
-  <% if @event.data.object.discount.try(:coupon).present? %>
+<% if defined? @event.data.object.discount %>
+  <% if defined? @event.data.object.discount.coupon %>
     <strong>Coupon:</strong> <a href='https://manage.stripe.com/coupons/<%= @event.data.object.discount.coupon.try(:id) %>'><%= @event.data.object.discount.coupon.try(:id) %></a><br>
   <% end %>
 <% end %>
