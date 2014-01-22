@@ -54,4 +54,52 @@ class Notifier < ActionMailer::Base
       :subject => "[Stripe] #{event.type} for #{@subject_cust}"
       )
   end
+
+  def send_json(event)
+    @event = event
+    headers['x-smtpapi'] = {
+      :filters => {
+        
+        :template => {
+          :settings => {
+            :enable => 1,
+            :"text/html" => "<% body %>"
+          }
+        },
+
+        :clicktrack => {
+          :settings => {
+            :enable => 0
+          }
+        },
+
+        :opentrack => {
+          :settings => {
+            :enable => 0
+          }
+        },
+
+        :subscriptiontrack => {
+          :settings => {
+            :enable => 0
+          }
+        },
+
+        :ganalytics => {
+          :settings => {
+            :enable => 0
+          }
+        }
+
+      }
+    }.to_json
+
+    mail(
+      :from => ENV["EMAIL_FROM"],
+      :to => ENV["EMAIL_TO"],
+      :subject => "[Stripe] #{event.type}"
+      )
+  end
+
+
 end
