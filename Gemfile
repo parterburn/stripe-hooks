@@ -5,6 +5,7 @@ gem 'puma', '~> 2.0.1' # web server
 gem 'pg' #database
 gem 'slim', '~> 2.0.0' # Templating for queue
 gem 'jquery-rails'
+gem 'newrelic_rpm'
 gem 'stripe_event'
 
 # Gems used only for assets and not required in production environments by default.
